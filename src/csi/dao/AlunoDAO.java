@@ -17,19 +17,20 @@ public class AlunoDAO {
 
 	
 	//create
-	public boolean inserir(Aluno aluno){
+	public boolean inserir(Aluno a){
 		
 		try{
 			Connection con = ConcectaPostGres.conexao();
-			String sql = "insert into aluno (nome, matricula, data) VALUES (?,?,?)";
+			String sql = "insert into aluno (nome, matricula, data, usuario, senha) VALUES (?,?,?,?,?)";
 			PreparedStatement preStmt = con.prepareStatement(sql);
-			preStmt.setString(1, aluno.getNome());
-			preStmt.setString(2, aluno.getMatricula());
-			preStmt.setDate(3, new Date(aluno.getData().getTimeInMillis()));
-			//executa sql 
+			preStmt.setString(1, a.getNome());
+			preStmt.setString(2, a.getMatricula());
+			preStmt.setDate(3, new Date(a.getData().getTimeInMillis()));
+			preStmt.setString(4, a.getUsuario().getUser());
+			preStmt.setString(5, a.getUsuario().getSenha());
 			preStmt.execute();
 			
-			System.out.println("SQL: " + sql); //só para teste do query
+			return true;
 		
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -37,7 +38,6 @@ public class AlunoDAO {
 		return false;
 	}
 	
-	//read
 	public Aluno getAluno(int id) throws Exception{
 		Connection con = ConcectaPostGres.conexao();
 		String sql = "select * from aluno where id=?";
@@ -47,18 +47,18 @@ public class AlunoDAO {
 		ResultSet rs = prt.executeQuery();	
 		
 		while(rs.next()){
-			Aluno a = new Aluno();
-			a.setId(id);
 			
-			String nome = rs.getString("nome");
-			a.setNome(nome);
-			
-			String matricula = rs.getString("matricula");
-			a.setMatricula(matricula);
-			
+			String nome = rs.getString("nome");							
+			String matricula = rs.getString("matricula");								
 			Calendar data = Calendar.getInstance();
-			data.setTime(rs.getDate("data"));
-			a.setData(data);
+			data.setTime(rs.getDate("data"));								
+			String usuario = rs.getString("usuario");
+			String senha = rs.getString("senha");
+			float media = new AvaliacaoDAO().media(id);
+			
+			//montar obj aluno
+			Aluno a = new Aluno(nome, matricula, data, usuario, senha, media);
+			a.setId(id);
 			
 			return a;
 		}
@@ -77,20 +77,23 @@ public class AlunoDAO {
 		Connection con = ConcectaPostGres.conexao();
 		String sql = "select * from aluno";
 		try {
-			PreparedStatement preStmt = con.prepareStatement(sql);
-			ResultSet rs = preStmt.executeQuery();	
+			PreparedStatement preStmt = con.prepareStatement(sql);			
+			ResultSet rs =	preStmt.executeQuery();
+			
 			while(rs.next()){
-				//montar um objeto aluno com as infos que vem do banco
-				Aluno a = new Aluno();
-				a.setId(rs.getInt("id"));
-				a.setNome(rs.getString("nome"));
-				a.setMatricula(rs.getString("matricula"));
-				//charopeira pra conseguir pegar a data:
+				int id = rs.getInt("id");						
+				String nome = rs.getString("nome");							
+				String matricula = rs.getString("matricula");								
 				Calendar data = Calendar.getInstance();
-				data.setTime(rs.getDate("data"));
-				a.setData(data);
-				//depois de setar tudo, jogar o aluno criado no arraylist, pra continuarmos tendo acesso
-				listaAlunos.add(a);
+				data.setTime(rs.getDate("datanasc"));								
+				String usuario = rs.getString("usuario");
+				String senha = rs.getString("senha");
+				float media = new AvaliacaoDAO().media(id);
+				 
+				//montar obj aluno
+				Aluno a = new Aluno(nome, matricula, data, usuario, senha, media);
+				a.setId(id);
+				listaAlunos.add(a);				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -99,15 +102,17 @@ public class AlunoDAO {
 	}
 	
 	//update
-	public boolean atualizar(Aluno aluno) throws Exception{
+	public boolean atualizar(Aluno a) throws Exception{
 		Connection con = ConcectaPostGres.conexao();
-		String sql = "UPDATE aluno SET nome=?, matricula=?, data=? WHERE id = ?";
+		String sql = "UPDATE aluno SET nome=?, matricula=?, data=?, usuario=?, senha=? WHERE id = ?";
 		
 		PreparedStatement pre = con.prepareStatement(sql);
-		pre.setString(1, aluno.getNome());
-		pre.setString(2, aluno.getMatricula());
-		pre.setDate(3, new Date(aluno.getData().getTimeInMillis()));
-		pre.setInt(4, aluno.getId());
+		pre.setString(1, a.getNome());
+		pre.setString(2, a.getMatricula());
+		pre.setDate(3, new Date(a.getData().getTimeInMillis()));
+		pre.setString(4, a.getUsuario().getUser());
+		pre.setString(5, a.getUsuario().getSenha());
+		pre.setInt(6, a.getId());
 		pre.execute();
 
 		return true;

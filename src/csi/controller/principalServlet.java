@@ -29,16 +29,25 @@ public class principalServlet extends HttpServlet {
     
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String opcao = request.getParameter("opcao");
 		RequestDispatcher despachante;
-		String paginaAluno = "/WEB-INF/jsp/aluno.jsp";
+		String pagina = "";
 		
-		AlunoDAO dao = new AlunoDAO();
-		request.setAttribute("alunos", dao.getAlunos()); //carrega a lista de alunos junto com a página
 		
-		despachante = request.getServletContext().getRequestDispatcher(paginaAluno);
+		if(opcao.equals("aluno")){
+			pagina = "/WEB-INF/jsp/aluno.jsp";
+			AlunoDAO dao = new AlunoDAO();
+			request.setAttribute("alunos", dao.getAlunos()); //carrega a lista de alunos junto com a página
+		}
+		else if (opcao.equals("avaliacao")){
+			pagina = "/WEB-INF/jsp/avaliacao.jsp";
+			AlunoDAO dao = new AlunoDAO();			
+			request.setAttribute("alunos", dao.getAlunos());
+		}
+
+		despachante = request.getServletContext().getRequestDispatcher(pagina);
 		despachante.forward(request, response);
-		
-		
+
 	}
 	
 	

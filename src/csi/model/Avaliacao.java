@@ -12,31 +12,22 @@ public class Avaliacao {
 		this.nota = nota;
 	}
 	
-	public Avaliacao(){
-	}
-
-	public Aluno getAlAvaliado() {
+	public Aluno getAlunoAvaliado() {
 		return alunoAvaliado;
 	}
-
-	public void setAlAvaliado(Aluno alAvaliado) {
+	public void setAlunoAvaliado(Aluno alAvaliado) {
 		this.alunoAvaliado = alAvaliado;
 	}
-
 	public String getComentario() {
 		return comentario;
 	}
-
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
-
 	public float getNota() {
 		return nota;
 	}
-
 	public void setNota(float nota) {
 		this.nota = nota;
 	}	
-	
 }

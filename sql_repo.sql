@@ -3,7 +3,13 @@ CREATE TABLE aluno(
 	id serial primary key,
 	nome varchar(30) not null,
 	matricula varchar(20) not null,
-	data Date);
+	data Date,
+	usuario varchar(10) not null,
+	senha varchar(10) not null);
+
+	insert into aluno
+		(nome, matricula, data, usuario, senha)
+		values ('facada','2016021195','1992-06-20', 'abc', '123');
 
 CREATE TABLE avaliacao(
 	id serial primary key,

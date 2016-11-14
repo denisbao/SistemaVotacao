@@ -1,6 +1,8 @@
 package csi.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,18 +34,36 @@ public class AvaliacaoServlet extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String id = request.getParameter("idAlunoAvaliado");
+		String idAlunoAvaliado = request.getParameter("idAlunoAvaliado");
 		String comentario = request.getParameter("comentario");
 		String nota = request.getParameter("nota");
 		String idAvaliador = request.getParameter("idAlunoAvaliador");
 		
+		System.out.println("idAlunoAvaliado: "+idAlunoAvaliado);
+		System.out.println("comentario: "+comentario);
+		System.out.println("nota: "+nota);
+		System.out.println("idAlunoAvaliador: "+idAvaliador);
+		
 		try{
-			Aluno alAvaliado = new AlunoDAO().getAluno(Integer.parseInt(id));
-			Aluno alAvaliador = new AlunoDAO().getAluno(Integer.parseInt(idAvaliador));
-			Avaliacao av = new Avaliacao(alAvaliado, comentario, Float.parseFloat(nota));
+			String pagina = "";
+			if (idAlunoAvaliado.equals(idAvaliador)){
+				pagina = "/WEB-INF/jsp/avaliacao.jsp";
+				request.setAttribute("msgDoServidor", "não é permitido fazer auto-avaliação");
+			}
+			else{
+				Aluno alAvaliado = new AlunoDAO().getAluno(Integer.parseInt(idAlunoAvaliado));
+				Aluno alAvaliador = new AlunoDAO().getAluno(Integer.parseInt(idAvaliador));
+				Avaliacao av = new Avaliacao(alAvaliado, comentario, Float.parseFloat(nota));
+				
+				AvaliacaoDAO dao = new AvaliacaoDAO();
+				dao.fezAvaliacao(alAvaliador, av);
+				
+				pagina = "/WEB-INF/jsp/principal.jsp";
+			}
 			
-			AvaliacaoDAO dao = new AvaliacaoDAO();
-			dao.fezAvaliacao(alAvaliador, av);
+			RequestDispatcher despat = request.getServletContext().getRequestDispatcher(pagina);
+			despat.forward(request, response);	
+			
 			
 		}catch(Exception e){
 			e.printStackTrace();

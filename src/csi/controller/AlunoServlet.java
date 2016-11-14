@@ -15,10 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import csi.dao.AlunoDAO;
 import csi.model.Aluno;
 
-
-/**
- * Servlet implementation class AlunoServlet
- */
 @WebServlet("/AlunoServlet")
 public class AlunoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -114,11 +110,11 @@ public class AlunoServlet extends HttpServlet {
 	private Aluno montaAluno(HttpServletRequest request){
 		String nome = request.getParameter("nome");
 		String matricula = request.getParameter("matricula");
-		String dataNascimento = request.getParameter("data");
+		String dataNascimento = request.getParameter("data");	
+		//NOVO...
+		String usuario = request.getParameter("usuario");
+		String senha = request.getParameter("senha");
 		
-		//A data de nascimento é um tipo "date" no banco. E é importada do banco como String.
-		//Aluno precisa receber essa variável como tipo "Calendar"
-		//É necessário converter a String para Calendar
 		Calendar dataNasc = null;
 		try{
 			Date data = new SimpleDateFormat("dd-MM-yyyy").parse(dataNascimento);
@@ -127,7 +123,7 @@ public class AlunoServlet extends HttpServlet {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		return new Aluno(nome, matricula, dataNasc);
+		return new Aluno(nome, matricula, dataNasc, usuario, senha, 0f);
 	}
 	
 	
