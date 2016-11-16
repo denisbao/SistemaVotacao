@@ -10,6 +10,9 @@
 	<body>
 		<jsp:useBean id="dao" class="csi.dao.AlunoDAO"></jsp:useBean>
 		<h2>ALUNOS CADASTRADOS</h2>
+		
+		<a href="principalServlet?opcao=principal">VOLTAR</a>
+		<br><br><br>
 			<table>
 				<thead>
 					<tr>

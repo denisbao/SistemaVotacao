@@ -37,6 +37,8 @@
 		<button type="submit">INSERIR</button>
 	</form>
 	<br>
+	<a href="principalServlet?opcao=principal">VOLTAR</a>
+	<br>
 	
 	<h2>Alunos Cadastrados</h2>
 	<table style="width:100%">

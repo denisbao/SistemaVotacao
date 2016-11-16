@@ -16,17 +16,22 @@
 					<option value="${aluno.id}">${aluno.nome}</option>
 				</c:forEach>
 			</select> 
-			
+			<br><br><br>
 			<label for="comentario">Comentário</label>
 			<textarea rows="4" cols="50" name="comentario"></textarea>
-	
+			<br><br><br>
 			<label for="nota">Nota</label> 
 			<input name="nota" type="number" min="1" max="100" required="required" /> 
-			
+			<br><br><br>
 			<label for="nota">Código Avaliador</label> 
 			<input name="idAlunoAvaliador" type="number" required="required" />
-	
+			<br><br><br>
 			<button type="submit">AVALIAR</button>
+			
+			<br><br>
+			<a href="principalServlet?opcao=principal">VOLTAR</a>
+			<br>
+			
 		</form>
 	
 		<c:if test="${not empty msgDoServidor}">
