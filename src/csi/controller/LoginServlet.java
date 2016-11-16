@@ -35,9 +35,9 @@ public class LoginServlet extends HttpServlet {
 		
 		boolean logado = new UsuarioDAO().autenticado(user);
 		
-		if(usuario.equals("denis") && senha.equals("1234")){
-			logado = true;
-		}
+//		if(usuario.equals("denis") && senha.equals("1234")){
+//			logado = true;
+//		}
 		
 		RequestDispatcher despat;
 		if(logado){
