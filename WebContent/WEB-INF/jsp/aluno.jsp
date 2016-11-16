@@ -28,10 +28,16 @@
 		<input name="matricula" type="text" value="${aluno.matricula}"/>
 		<label for="data">Data de Nascimento</label>
 		<input name="data" type="date"/>
-		<button type="submit">Inserir</button>
+		<label for="dataNasc">Usuario</label>
+		
+		<input name="usuario" type="text" />
+		<label for="senha">Senha</label>
+		<input name="senha" type="password" />
+		
+		<button type="submit">INSERIR</button>
 	</form>
-
 	<br>
+	
 	<h2>Alunos Cadastrados</h2>
 	<table style="width:100%">
 		<thead >
@@ -62,7 +68,6 @@
 				</td>
 			</tr>
 		</c:forEach>
-
 	</table>
 </body>
 </html>
