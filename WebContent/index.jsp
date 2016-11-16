@@ -20,6 +20,7 @@
 				<h2>Usuário ou Senha não cadastrados</h2>
 			</c:if>
 		</section><br>
+		<a href="alunosAvaliados.jsp">VER AVALIAÇÕES</a>
 		<footer>@Projeto - Exemplo em aula</footer>
 	</body>
 </html>
