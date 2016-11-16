@@ -6,13 +6,19 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="css/bootstrap.css">
-	<title>Cadastro Clientes</title>
+	<title>Home</title>
 </head>
 <body>
 	<h1>Pagina Principal</h1>
 	<ul>
 		<li>
-			<a href="principalServlet">ALUNO</a>
+			<a href="principalServlet?opcao=aluno">Aluno</a>
+		</li>
+		<li>
+			<a href="principalServlet?opcao=avaliacao">Avaliacao</a>
+		</li>
+		<li>
+			<a href="alunosAvaliados.jsp">VER AVALIAÇÕES</a>
 		</li>
 	</ul>
 </body>
