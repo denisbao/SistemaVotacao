@@ -44,6 +44,11 @@ public class principalServlet extends HttpServlet {
 			AlunoDAO dao = new AlunoDAO();			
 			request.setAttribute("alunos", dao.getAlunos());
 		}
+		else if(opcao.equals("principal")){
+			pagina = "/WEB-INF/jsp/principal.jsp";
+			despachante = request.getServletContext().getRequestDispatcher(pagina);
+			despachante.forward(request, response);
+		}
 
 		despachante = request.getServletContext().getRequestDispatcher(pagina);
 		despachante.forward(request, response);
