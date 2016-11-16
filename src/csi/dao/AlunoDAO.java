@@ -85,7 +85,7 @@ public class AlunoDAO {
 				String nome = rs.getString("nome");							
 				String matricula = rs.getString("matricula");								
 				Calendar data = Calendar.getInstance();
-				data.setTime(rs.getDate("datanasc"));								
+				data.setTime(rs.getDate("data"));								
 				String usuario = rs.getString("usuario");
 				String senha = rs.getString("senha");
 				float media = new AvaliacaoDAO().media(id);
